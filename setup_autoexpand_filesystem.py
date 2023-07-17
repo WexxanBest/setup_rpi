@@ -5,7 +5,7 @@ from utils import check_for_root
 
 check_for_root()
 
-def change_cmdline_file();
+def change_cmdline_file():
     with open('/boot/cmdline.txt') as file:
         old_data = file.read().strip()
 
