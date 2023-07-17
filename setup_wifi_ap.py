@@ -8,13 +8,20 @@ DHCPCD_CONF_FILE = '/etc/dhcpcd.conf'
 
 check_for_root()
 
-install_hostapd = ask_question('Install hostapd?', default_answer='y')
+print('Enable SSH on Raspberry! It can be done using raspi-config!')
+print('You should go to "Interface Options" > "SSH" > "enable"!')
+
+raspi_config = ask_question('\nOpen raspi-config?', default_answer='y')
+if raspi_config:
+    os.system('sudo raspi-config')
+
+install_hostapd = ask_question('\nInstall hostapd?', default_answer='y')
 if install_hostapd:
     os.system('sudo apt install -y hostapd dnsmasq')
     os.system('sudo systemctl unmask hostapd')
     os.system('sudo systemctl enable hostapd')
 
-set_static_ip = ask_question('Set static IP?', default_answer='y')
+set_static_ip = ask_question('\nSet static IP?', default_answer='y')
 if set_static_ip:
     static_ip = prompt_user('Static IP:', '192.168.4.1/24')
     with open(DHCPCD_CONF_FILE) as file:
@@ -26,7 +33,7 @@ if set_static_ip:
     with open(DHCPCD_CONF_FILE, 'w') as file:
         file.write(file_data)
 
-edit_dnsmasq_file = ask_question("Edit '/etc/dnsmasq.conf' file?", default_answer='y')
+edit_dnsmasq_file = ask_question("\nEdit '/etc/dnsmasq.conf' file?", default_answer='y')
 if edit_dnsmasq_file:
     os.system('sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig') # save original file
     print("Saved original file as '/etc/dnsmasq.conf.orig' as backup!")
@@ -36,10 +43,9 @@ if edit_dnsmasq_file:
     with open('/etc/dnsmasq.conf', 'w') as file:
         file.write(lines_to_write)
 
-    print("Wrote following lines to '/etc/dnsmasq.conf' file:\n", lines_to_write)
-    print()
+    print("Wrote following lines to '/etc/dnsmasq.conf' file:\n" + lines_to_write)
 
-edit_hostapd_conf = ask_question("Edit 'hostapd.conf' file?", default_answer='y')
+edit_hostapd_conf = ask_question("\nEdit 'hostapd.conf' file?", default_answer='y')
 if edit_hostapd_conf:
     wifi_ssid = prompt_user("WiFi AP SSID:", default_answer='RPI_AVT')
     wifi_psk = prompt_user("WiFi password:", 'raspberry')
@@ -62,10 +68,9 @@ if edit_hostapd_conf:
     with open('/etc/hostapd/hostapd.conf', 'w') as file:
         file.write(lines_to_write)
     
-    print("Wrote following lines to '/etc/hostapd/hostapd.conf' file:\n", lines_to_write)
-    print()
+    print("Wrote following lines to '/etc/hostapd/hostapd.conf' file:\n" + lines_to_write)
 
 
-reboot_system = ask_question('Reboot system? (Recommended!)', default_answer='yes')
+reboot_system = ask_question('\nReboot system? (Recommended!)', default_answer='yes')
 if reboot_system:
     os.system('sudo systemctl reboot')
