@@ -1,9 +1,5 @@
 import os
 
-from utils import check_for_root
-
-
-check_for_root()
 
 commands = [
     "pip install opencv-contrib-python",
