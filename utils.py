@@ -36,4 +36,5 @@ def prompt_user(question: str, default_answer: str = None) -> Union[None, str]:
 
 def check_for_root():
     if os.geteuid() != 0:
-        exit("You have to run script with root privileges.\nPlease try again, this time using 'sudo'. Exiting...")
+        print("You have to run script with root privileges.\nPlease try again, this time using 'sudo'. Exiting...")
+        quit(1)
