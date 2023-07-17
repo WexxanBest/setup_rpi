@@ -8,6 +8,7 @@ check_for_root()
 commands = [
     "sudo apt update",
     "sudo apt install -y build-essential cmake libgtk-3-dev libboost-all-dev libatlas-base-dev",
+    "sudo apt install -y libavdevice-dev libavfilter-dev libavformat-dev libavcodec-dev libswresample-dev libswscale-dev libavutil-dev",
     "pip3 install dlib"
 ]
 
