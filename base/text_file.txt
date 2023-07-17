@@ -1,0 +1,7 @@
+Privet!
+
+Mi sozdali etot file v kachestve primera.
+
+Chtobi viiti iz redactora nashmi Ctrl+X
+zatem vvedi Y
+i nashmi Enter
