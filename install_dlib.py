@@ -28,8 +28,9 @@ if old_swapsize < 1024:
         swapfile_lines[line_num] = f'CONF_SWAPSIZE={new_swapsize}'
         with open(swapfile, 'w') as file:
             file.write('\n'.join(swapfile_lines))
-        swap_changed = True
+        os.system('sudo dphys-swapfile swapoff; sudo dphys-swapfile setup; sudo dphys-swapfile swapon')
         print('Swap was changed!\n')
+        swap_changed = True
 # --- SWAP --- #
 
 
@@ -54,5 +55,6 @@ if swap_changed:
         swapfile_lines[line_num] = f'CONF_SWAPSIZE={old_swapsize}'
         with open(swapfile, 'w') as file:
             file.write('\n'.join(swapfile_lines))
+        os.system('sudo dphys-swapfile swapoff; sudo dphys-swapfile setup; sudo dphys-swapfile swapon')
         print('Swap was changed!\n')
 # --- SWAP --- #
